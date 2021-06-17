@@ -18,9 +18,9 @@ class SelectorType(Enum):
 @dataclass
 class Selector:
     selector_type: SelectorType
-    tag: Optional[str]
-    id: Optional[str]
-    classes: Optional[List[str]]
-    index: Optional[int]
-    other_attributes: Optional[Dict[str, str]]
-    inner_text: Optional[str]
+    tag: Optional[str] = None
+    id: Optional[str] = None
+    classes: Optional[List[str]] = None
+    index: Optional[int] = None
+    other_attributes: Optional[Dict[str, str]] = None
+    inner_text: Optional[str] = None
