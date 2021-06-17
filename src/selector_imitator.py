@@ -65,7 +65,7 @@ class SelectorImitator:
         return target_selector
 
     def _imitate_id(self) -> Selector:
-        if self.target_node.id is not None:
+        if self.target_node.id:
             return Selector(selector_type=SelectorType.BY_ID, id=self.target_node.id)
         else:
             raise ImitationError("Target node does not have an id.")
