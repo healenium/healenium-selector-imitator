@@ -23,3 +23,14 @@ class Selector:
     index: Optional[int] = None
     other_attributes: Optional[Dict[str, str]] = None
     inner_text: Optional[str] = None
+
+    def __eq__(self, other: "Selector") -> bool:
+        return (
+            self.selector_type == other.selector_type
+            and self.tag == other.tag
+            and self.id == other.id
+            and set(self.classes) == set(other.classes)
+            and self.index == other.index
+            and self.other_attributes == other.other_attributes
+            and self.inner_text == other.inner_text
+        )
