@@ -1,14 +1,14 @@
-from dataclasses import dataclass
+from dataclasses import dataclass, field
 from typing import Optional, List, Dict
 
 
 @dataclass
 class Node:
-    tag: str
-    id: str
-    classes: List[str]
-    index: int
-    other_attributes: Dict[str, str]
-    inner_text: str
-    parent: Optional["Node"]
-    children: Optional[List["Node"]]
+    tag: str = ""
+    id: str = ""
+    classes: List[str] = field(default_factory=list)
+    index: int = 0
+    other_attributes: Dict[str, str] = field(default_factory=dict)
+    inner_text: str = ""
+    parent: Optional["Node"] = None
+    children: Optional[List["Node"]] = None
