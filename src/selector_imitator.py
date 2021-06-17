@@ -1,5 +1,5 @@
-from node import Node
-from selector import Selector, SelectorType
+from .node import Node
+from .selector import Selector, SelectorType
 from typing import List
 
 
