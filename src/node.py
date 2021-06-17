@@ -7,7 +7,7 @@ class Node:
     tag: str = ""
     id: str = ""
     classes: List[str] = field(default_factory=list)
-    index: int = 0
+    index: Optional[int] = None
     other_attributes: Dict[str, str] = field(default_factory=dict)
     inner_text: str = ""
     parent: Optional["Node"] = None
