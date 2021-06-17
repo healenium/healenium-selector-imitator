@@ -12,7 +12,6 @@ class SelectorType(Enum):
     BY_PARTIAL_LINK_TEXT = 6
     BY_TAG_NAME = 7
     BY_XPATH = 8
-    BY_REMOTABLE = 9
 
 
 @dataclass
