@@ -105,7 +105,7 @@ class SelectorImitator:
             raise ImitationError("Target node does not have a name attribute.")
 
     def _by_tag_name(self) -> Selector:
-        if self.target_node.tag is not None:
+        if self.target_node.tag:
             return Selector(
                 selector_type=SelectorType.BY_TAG_NAME, tag=self.target_node.tag
             )
