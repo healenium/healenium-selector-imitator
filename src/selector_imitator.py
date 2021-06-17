@@ -93,16 +93,16 @@ class SelectorImitator:
                 return Selector(
                     selector_type=SelectorType.BY_NAME,
                     other_attributes={
-                        "name": self.user_selector.other_attributes["name"]
+                        "name": self.target_node.other_attributes["name"]
                     },
                 )
             else:
-                ImitationError(
+                raise ImitationError(
                     "Invalid user selector: does not contain name attribute, "
                     "while type is BY_NAME."
                 )
         else:
-            ImitationError("Target node does not have a name attribute.")
+            raise ImitationError("Target node does not have a name attribute.")
 
     def _by_tag_name(self) -> Selector:
         if self.target_node.tag is not None:
