@@ -29,7 +29,7 @@ class Selector:
             self.selector_type == other.selector_type
             and self.tag == other.tag
             and self.id == other.id
-            and set(self.classes) == set(other.classes)
+            and set(self.classes or []) == set(other.classes or [])
             and self.index == other.index
             and self.other_attributes == other.other_attributes
             and self.inner_text == other.inner_text
