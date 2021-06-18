@@ -14,3 +14,8 @@ def test_validation_success_complex():
 def test_validation_error():
     with pytest.raises(ParsingError):
         CSSSelectorParser("div#hello_world span.some_class")
+
+
+def test_parse_tag():
+    selector = "div#hello.class_name[href='hello world']"
+    assert CSSSelectorParser(selector).get_tag() == "div"
