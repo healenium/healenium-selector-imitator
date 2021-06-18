@@ -19,3 +19,13 @@ def test_validation_error():
 def test_parse_tag():
     selector = "div#hello.class_name[href='hello world']"
     assert CSSSelectorParser(selector).get_tag() == "div"
+
+
+def test_parse_id():
+    selector = "div#hello.class_name[href='hello world']"
+    assert CSSSelectorParser(selector).get_id() == "hello"
+
+
+def test_parse_id_empty():
+    selector = "div.class_name[href='hello #world']"
+    assert CSSSelectorParser(selector).get_id() == ""
