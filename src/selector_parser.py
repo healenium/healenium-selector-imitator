@@ -1,5 +1,7 @@
 import re
 
+from typing import List
+
 
 class ParsingError(Exception):
     pass
@@ -40,3 +42,7 @@ class CSSSelectorParser:
             return ""
         else:
             return search_result.group(1)
+
+    def get_classes(self) -> List[str]:
+        expression = re.compile(r"\.(\w+)")
+        return expression.findall(self.remove_quoted_text(self.selector))

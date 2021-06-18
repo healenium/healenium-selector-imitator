@@ -29,3 +29,13 @@ def test_parse_id():
 def test_parse_id_empty():
     selector = "div.class_name[href='hello #world']"
     assert CSSSelectorParser(selector).get_id() == ""
+
+
+def test_parse_classes():
+    selector = "div#hello.class_name.class_2[href='hello world']"
+    assert set(CSSSelectorParser(selector).get_classes()) == {"class_name", "class_2"}
+
+
+def test_parse_classes_empty():
+    selector = "div#hello[href='hello.world']"
+    assert set(CSSSelectorParser(selector).get_classes()) == set()
