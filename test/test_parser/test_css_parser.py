@@ -21,6 +21,11 @@ def test_parse_tag():
     assert CSSSelectorParser(selector).get_tag() == "div"
 
 
+def test_parse_no_tag():
+    selector = "#hello.class_name[href='hello world']"
+    assert CSSSelectorParser(selector).get_tag() == ""
+
+
 def test_parse_tag_simple():
     selector = "div"
     assert CSSSelectorParser(selector).get_tag() == "div"

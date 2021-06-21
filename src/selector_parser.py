@@ -13,7 +13,7 @@ class CSSSelectorParser:
         self.validate()
 
     def validate(self):
-        expression = re.compile(r"^(\w+)(\.\w+|#\w+|\[.+])*$")
+        expression = re.compile(r"^(\w*)(\.\w+|#\w+|\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse CSS selector")
 
@@ -31,7 +31,7 @@ class CSSSelectorParser:
         expression = re.compile(r"^\w+")
         search_result = expression.search(self.selector)
         if search_result is None:
-            raise ParsingError(f"Cannot extract tag from {self.selector}")
+            return ""
         else:
             return search_result.group()
 
