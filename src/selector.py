@@ -76,12 +76,37 @@ class Selector:
         )
 
     def __str__(self):
-        if self.selector_type == SelectorType.BY_CSS_SELECTOR:
+        if self.selector_type == SelectorType.BY_CLASS_NAME:
+            if self.classes is None or len(self.classes) == 0:
+                raise ValueError(
+                    "BY_CLASS_NAME selector must contain one class name, none provided."
+                )
+            if len(self.classes) == 1:
+                return self.classes[0]
+            elif len(self.classes) > 1:
+                raise ValueError(
+                    "Ambiguous BY_CLASS_NAME selector. "
+                    "Only one class allowed for this selector type."
+                )
+        elif self.selector_type == SelectorType.BY_CSS_SELECTOR:
             return CSSSelectorConstructor(
                 tag=self.tag,
                 element_id=self.id,
                 classes=self.classes,
                 other_attributes=self.other_attributes,
             ).get_string_representation()
+        elif self.selector_type == SelectorType.BY_ID:
+            return self.id if self.id is not None else ""
+        elif self.selector_type == SelectorType.BY_LINK_TEXT:
+            return self.inner_text if self.inner_text is not None else ""
+        elif self.selector_type == SelectorType.BY_NAME:
+            if self.other_attributes is not None and "name" in self.other_attributes:
+                return self.other_attributes["name"]
+            else:
+                raise ValueError("BY_NAME selector must contain name attribute.")
+        elif self.selector_type == SelectorType.BY_PARTIAL_LINK_TEXT:
+            return self.inner_text if self.inner_text is not None else ""
+        elif self.selector_type == SelectorType.BY_TAG_NAME:
+            return self.tag if self.tag is not None else ""
         else:
             return ""
