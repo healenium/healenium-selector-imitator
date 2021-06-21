@@ -38,7 +38,16 @@ class SelectorImitator:
                 raise ImitationError("Target node does not have any id.")
         if self.user_selector.classes is not None:
             if self.target_node.classes:
-                target_selector.classes = self.target_node.classes
+                target_selector.classes = []
+                some_class_changed = False
+                for cls in self.user_selector.classes:
+                    if cls in self.target_node.classes:
+                        target_selector.classes.append(cls)
+                    else:
+                        some_class_changed = True
+                        break
+                if some_class_changed:
+                    target_selector.classes = self.target_node.classes
             else:
                 raise ImitationError("Target node does not belong to any classes.")
         if self.user_selector.index is not None:
