@@ -1,6 +1,6 @@
 import re
 
-from typing import List
+from typing import List, Dict
 
 
 class ParsingError(Exception):
@@ -46,3 +46,15 @@ class CSSSelectorParser:
     def get_classes(self) -> List[str]:
         expression = re.compile(r"\.(\w+)")
         return expression.findall(self.remove_quoted_text(self.selector))
+
+    def get_attributes(self) -> Dict[str, str]:
+        attributes = {}
+        raw_attributes = re.compile(r"\[[^\[\]]+]").findall(self.selector)
+        for attribute in raw_attributes:
+            attribute_expression = re.compile(r"""\[(\w+)=('.*'|".*")]""")
+            attribute_match = attribute_expression.match(attribute)
+            if attribute_match is not None:
+                attributes[attribute_match.group(1)] = (
+                    attribute_match.group(2).strip("'").strip('"')
+                )
+        return attributes

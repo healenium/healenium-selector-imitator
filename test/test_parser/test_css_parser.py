@@ -21,6 +21,11 @@ def test_parse_tag():
     assert CSSSelectorParser(selector).get_tag() == "div"
 
 
+def test_parse_tag_simple():
+    selector = "div"
+    assert CSSSelectorParser(selector).get_tag() == "div"
+
+
 def test_parse_id():
     selector = "div#hello.class_name[href='hello world']"
     assert CSSSelectorParser(selector).get_id() == "hello"
@@ -39,3 +44,18 @@ def test_parse_classes():
 def test_parse_classes_empty():
     selector = "div#hello[href='hello.world']"
     assert set(CSSSelectorParser(selector).get_classes()) == set()
+
+
+def test_parse_attributes_single_quotes():
+    selector = "div#hello[href='hello.world']"
+    assert CSSSelectorParser(selector).get_attributes() == {"href": "hello.world"}
+
+
+def test_parse_attributes_double_quotes():
+    selector = 'div.class_hello[name="hello"]'
+    assert CSSSelectorParser(selector).get_attributes() == {"name": "hello"}
+
+
+def test_parse_attributes_empty():
+    selector = "div.class_hello"
+    assert CSSSelectorParser(selector).get_attributes() == {}
