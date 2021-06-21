@@ -27,6 +27,13 @@ class Selector:
     inner_text: Optional[str] = None
 
     @classmethod
+    def from_class_name(cls, class_name: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_CLASS_NAME,
+            classes=[class_name]
+        )
+
+    @classmethod
     def from_css(cls, css_selector: str) -> "Selector":
         parser = CSSSelectorParser(css_selector)
         return cls(
@@ -35,6 +42,41 @@ class Selector:
             id=parser.get_id() or None,
             classes=parser.get_classes() or None,
             other_attributes=parser.get_attributes() or None,
+        )
+
+    @classmethod
+    def from_id(cls, element_id: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_CSS_SELECTOR,
+            id=element_id
+        )
+
+    @classmethod
+    def from_link_text(cls, link_text: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_LINK_TEXT,
+            inner_text=link_text
+        )
+
+    @classmethod
+    def from_name(cls, name: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_NAME,
+            other_attributes={"name": name}
+        )
+
+    @classmethod
+    def from_partial_link_text(cls, partial_link_text: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_PARTIAL_LINK_TEXT,
+            inner_text=partial_link_text
+        )
+
+    @classmethod
+    def from_tag_name(cls, tag_name: str) -> "Selector":
+        return cls(
+            selector_type=SelectorType.BY_TAG_NAME,
+            tag=tag_name
         )
 
     def __eq__(self, other: "Selector") -> bool:
