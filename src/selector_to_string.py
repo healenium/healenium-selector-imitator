@@ -20,7 +20,7 @@ class CSSSelectorConstructor:
         else:
             self.other_attributes = {}
 
-    def get_string_representation(self):
+    def get_string_representation(self) -> str:
         result = ""
         if self.tag is not None:
             result += self.tag

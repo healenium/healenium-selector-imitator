@@ -1,6 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from .selector_parser import CSSSelectorParser
+from .selector_to_string import CSSSelectorConstructor
 from typing import Optional, List, Dict
 
 
@@ -46,3 +47,14 @@ class Selector:
             and self.other_attributes == other.other_attributes
             and self.inner_text == other.inner_text
         )
+
+    def __str__(self):
+        if self.selector_type == SelectorType.BY_CSS_SELECTOR:
+            return CSSSelectorConstructor(
+                tag=self.tag,
+                element_id=self.id,
+                classes=self.classes,
+                other_attributes=self.other_attributes,
+            ).get_string_representation()
+        else:
+            return ""
