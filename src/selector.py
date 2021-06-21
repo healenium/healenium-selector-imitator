@@ -1,5 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
+from .selector_parser import CSSSelectorParser
 from typing import Optional, List, Dict
 
 
@@ -23,6 +24,17 @@ class Selector:
     index: Optional[int] = None
     other_attributes: Optional[Dict[str, str]] = None
     inner_text: Optional[str] = None
+
+    @classmethod
+    def from_css(cls, css_selector: str) -> "Selector":
+        parser = CSSSelectorParser(css_selector)
+        return cls(
+            selector_type=SelectorType.BY_CSS_SELECTOR,
+            tag=parser.get_tag() or None,
+            id=parser.get_id() or None,
+            classes=parser.get_classes() or None,
+            other_attributes=parser.get_attributes() or None,
+        )
 
     def __eq__(self, other: "Selector") -> bool:
         return (
