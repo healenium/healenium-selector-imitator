@@ -24,5 +24,17 @@ def test_parse_tag():
     assert XPathParser("//label[@id='message23']").get_tag() == "label"
 
 
+def test_parse_tag_simple():
+    assert XPathParser("//h2").get_tag() == "h2"
+
+
 def test_parse_no_tag():
     assert XPathParser("//*[@class='cls1'][1]").get_tag() == ""
+
+
+def test_parse_id():
+    assert XPathParser("//*[@id='rt-feature']").get_id() == "rt-feature"
+
+
+def test_parse_no_id():
+    assert XPathParser("//*[@class='cls1'][1]").get_id() == ""

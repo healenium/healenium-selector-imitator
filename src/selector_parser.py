@@ -82,3 +82,11 @@ class XPathParser:
             return ""
         else:
             return search_result.group(1)
+
+    def get_id(self) -> str:
+        expression = re.compile(r"""@id=('[\w-]+'|"[\w-]+")""")
+        search_result = expression.search(self.selector)
+        if search_result is None:
+            return ""
+        else:
+            return search_result.group(1).strip('"').strip("'")
