@@ -7,6 +7,19 @@ class ParsingError(Exception):
     pass
 
 
+class ParsingUtils:
+    @staticmethod
+    def remove_quoted_text(text: str) -> str:
+        result = text
+        single_quote_expression = re.compile("'.*'")
+        double_quote_expression = re.compile('".*"')
+        for expression in [single_quote_expression, double_quote_expression]:
+            while expression.search(result) is not None:
+                idx_from, idx_to = expression.search(result).span()
+                result = result[:idx_from] + result[idx_to:]
+        return result
+
+
 class CSSSelectorParser:
     def __init__(self, selector: str):
         self.selector = selector
@@ -16,16 +29,6 @@ class CSSSelectorParser:
         expression = re.compile(r"^(\w*)(\.\w+|#\w+|\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse CSS selector")
-
-    def remove_quoted_text(self, text: str) -> str:
-        result = text
-        single_quote_expression = re.compile("'.*'")
-        double_quote_expression = re.compile('".*"')
-        for expression in [single_quote_expression, double_quote_expression]:
-            while expression.search(result) is not None:
-                idx_from, idx_to = expression.search(result).span()
-                result = result[:idx_from] + result[idx_to:]
-        return result
 
     def get_tag(self) -> str:
         expression = re.compile(r"^\w+")
@@ -37,7 +40,9 @@ class CSSSelectorParser:
 
     def get_id(self) -> str:
         expression = re.compile(r"#(\w+)")
-        search_result = expression.search(self.remove_quoted_text(self.selector))
+        search_result = expression.search(
+            ParsingUtils.remove_quoted_text(self.selector)
+        )
         if search_result is None:
             return ""
         else:
@@ -45,7 +50,7 @@ class CSSSelectorParser:
 
     def get_classes(self) -> List[str]:
         expression = re.compile(r"\.(\w+)")
-        return expression.findall(self.remove_quoted_text(self.selector))
+        return expression.findall(ParsingUtils.remove_quoted_text(self.selector))
 
     def get_attributes(self) -> Dict[str, str]:
         attributes = {}
