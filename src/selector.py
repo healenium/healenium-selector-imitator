@@ -1,7 +1,7 @@
 from dataclasses import dataclass
 from enum import Enum
 from .selector_parser import CSSSelectorParser, XPathParser
-from .selector_to_string import CSSSelectorConstructor
+from .selector_to_string import CSSSelectorConstructor, XPathConstructor
 from typing import Optional, List, Dict
 
 
@@ -121,5 +121,14 @@ class Selector:
             return self.inner_text if self.inner_text is not None else ""
         elif self.selector_type == SelectorType.BY_TAG_NAME:
             return self.tag if self.tag is not None else ""
+        elif self.selector_type == SelectorType.BY_XPATH:
+            return XPathConstructor(
+                tag=self.tag,
+                element_id=self.id,
+                classes=self.classes,
+                other_attributes=self.other_attributes,
+                index=self.index,
+                inner_text=self.inner_text,
+            ).get_string_representation()
         else:
             return ""

@@ -74,3 +74,10 @@ def test_partial_link_text_selector_to_string():
 
 def test_tag_selector_to_string():
     assert str(Selector(selector_type=SelectorType.BY_TAG_NAME, tag="div")) == "div"
+
+
+def test_xpath_selector_to_string():
+    assert (
+        str(Selector(selector_type=SelectorType.BY_XPATH, tag="h2", id="hello"))
+        == "//h2[@id='hello']"
+    )
