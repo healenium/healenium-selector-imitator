@@ -32,8 +32,8 @@ def test_parse_tag_simple():
 
 
 def test_parse_id():
-    selector = "div#hello.class_name[href='hello world']"
-    assert CSSSelectorParser(selector).get_id() == "hello"
+    selector = "div#hello-world.class_name[href='hello world']"
+    assert CSSSelectorParser(selector).get_id() == "hello-world"
 
 
 def test_parse_id_empty():

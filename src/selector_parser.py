@@ -26,12 +26,12 @@ class CSSSelectorParser:
         self.validate()
 
     def validate(self):
-        expression = re.compile(r"^(\w*)(\.\w+|#\w+|\[.+])*$")
+        expression = re.compile(r"^([\w-]*)(\.[\w-]+|#[\w-]+|\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse CSS selector")
 
     def get_tag(self) -> str:
-        expression = re.compile(r"^\w+")
+        expression = re.compile(r"^[\w-]+")
         search_result = expression.search(self.selector)
         if search_result is None:
             return ""
@@ -39,7 +39,7 @@ class CSSSelectorParser:
             return search_result.group()
 
     def get_id(self) -> str:
-        expression = re.compile(r"#(\w+)")
+        expression = re.compile(r"#([\w-]+)")
         search_result = expression.search(
             ParsingUtils.remove_quoted_text(self.selector)
         )
@@ -49,14 +49,14 @@ class CSSSelectorParser:
             return search_result.group(1)
 
     def get_classes(self) -> List[str]:
-        expression = re.compile(r"\.(\w+)")
+        expression = re.compile(r"\.([\w-]+)")
         return expression.findall(ParsingUtils.remove_quoted_text(self.selector))
 
     def get_attributes(self) -> Dict[str, str]:
         attributes = {}
         raw_attributes = re.compile(r"\[[^\[\]]+]").findall(self.selector)
         for attribute in raw_attributes:
-            attribute_expression = re.compile(r"""\[(\w+)=('.*'|".*")]""")
+            attribute_expression = re.compile(r"""\[([\w-]+)=('.*'|".*")]""")
             attribute_match = attribute_expression.match(attribute)
             if attribute_match is not None:
                 attributes[attribute_match.group(1)] = (
@@ -71,12 +71,12 @@ class XPathParser:
         self.validate()
 
     def validate(self):
-        expression = re.compile(r"^//(\w*|\*)(\[.+])*$")
+        expression = re.compile(r"^//([\w-]*|\*)(\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse XPath selector")
 
     def get_tag(self) -> str:
-        expression = re.compile(r"^//(\w+)")
+        expression = re.compile(r"^//([\w-]+)")
         search_result = expression.search(self.selector)
         if search_result is None:
             return ""
