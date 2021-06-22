@@ -74,3 +74,11 @@ class XPathParser:
         expression = re.compile(r"^//(\w*|\*)(\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse XPath selector")
+
+    def get_tag(self) -> str:
+        expression = re.compile(r"^//(\w+)")
+        search_result = expression.search(self.selector)
+        if search_result is None:
+            return ""
+        else:
+            return search_result.group(1)
