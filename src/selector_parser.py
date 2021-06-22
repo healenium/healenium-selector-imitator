@@ -118,3 +118,11 @@ class XPathParser:
             return None
         else:
             return int(search_result.group(1))
+
+    def get_inner_text(self) -> str:
+        expression = re.compile(r"""text\(\)=('[^']*'|"[^"]*")""")
+        search_result = expression.search(self.selector)
+        if search_result is None:
+            return ""
+        else:
+            return search_result.group(1)[1:-1]

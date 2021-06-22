@@ -79,3 +79,13 @@ def test_parse_index():
 def test_parse_index_no_index():
     selector = "//div[@id='hello'][@href='hello.world']"
     assert XPathParser(selector).get_index() is None
+
+
+def test_parse_inner_text():
+    selector = "//p[@class='cls1 cls2' and text()='Hello, World!'][2]"
+    assert XPathParser(selector).get_inner_text() == "Hello, World!"
+
+
+def test_parse_inner_text_empty():
+    selector = "//p[@class='cls1 cls2'][2]"
+    assert XPathParser(selector).get_inner_text() == ""
