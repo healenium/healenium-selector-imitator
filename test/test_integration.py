@@ -33,3 +33,20 @@ def test_integration_css_selector_tag():
         str(SelectorImitator(user_selector, target_node).imitate()[0])
         == "h2.cls1[name='some_name']"
     )
+
+
+def test_integration_xpath_selector_value():
+    user_selector = Selector.from_xpath("//*[@value='Log In']")
+    target_node = Node(
+        tag="input",
+        classes=["fadeIn", "fourth"],
+        other_attributes={
+            "_ngcontent-wvw-c3": "",
+            "type": "button",
+            "value": "Log In New",
+        },
+    )
+    assert (
+        str(SelectorImitator(user_selector, target_node).imitate()[0])
+        == "//*[@value='Log In New']"
+    )
