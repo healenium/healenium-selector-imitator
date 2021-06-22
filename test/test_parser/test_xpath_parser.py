@@ -69,3 +69,13 @@ def test_parse_attributes_double_quotes():
 def test_parse_attributes_empty():
     selector = "//*[@class='class-hello']"
     assert XPathParser(selector).get_attributes() == {}
+
+
+def test_parse_index():
+    selector = "//*[@class='cls1 cls2'][2]"
+    assert XPathParser(selector).get_index() == 2
+
+
+def test_parse_index_no_index():
+    selector = "//div[@id='hello'][@href='hello.world']"
+    assert XPathParser(selector).get_index() is None

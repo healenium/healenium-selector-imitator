@@ -1,6 +1,6 @@
 import re
 
-from typing import List, Dict
+from typing import List, Dict, Optional
 
 
 class ParsingError(Exception):
@@ -108,3 +108,13 @@ class XPathParser:
             if attr_name not in ["class", "id"]:
                 attributes[attr_name] = attr_value.strip("'").strip('"')
         return attributes
+
+    def get_index(self) -> Optional[int]:
+        expression = re.compile(r"""\[(\d)+]""")
+        search_result = expression.search(
+            ParsingUtils.remove_quoted_text(self.selector)
+        )
+        if search_result is None:
+            return None
+        else:
+            return int(search_result.group(1))
