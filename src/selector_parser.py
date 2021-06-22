@@ -90,3 +90,12 @@ class XPathParser:
             return ""
         else:
             return search_result.group(1).strip('"').strip("'")
+
+    def get_classes(self) -> List[str]:
+        expression_all_classes = r"""@class=('[ \w-]+'|"[ \w-]+")"""
+        expression_contains = r"""contains\(@class,('[ \w-]+'|"[ \w-]+")\)"""
+        for expression in [expression_all_classes, expression_contains]:
+            search_result = re.compile(expression).search(self.selector)
+            if search_result is not None:
+                return search_result.group(1).strip('"').strip("'").split(" ")
+        return []

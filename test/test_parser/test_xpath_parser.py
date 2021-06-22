@@ -38,3 +38,19 @@ def test_parse_id():
 
 def test_parse_no_id():
     assert XPathParser("//*[@class='cls1'][1]").get_id() == ""
+
+
+def test_parse_classes_single_class():
+    assert XPathParser("//*[@class='cls1'][1]").get_classes() == ["cls1"]
+
+
+def test_parse_classes_multiple_classes():
+    assert XPathParser("//*[@class='cls1 cls2'][1]").get_classes() == ["cls1", "cls2"]
+
+
+def test_parse_classes_single_class_with_contains():
+    assert XPathParser("//*[contains(@class,'btn')]").get_classes() == ["btn"]
+
+
+def test_parse_classes_no_class():
+    assert XPathParser("//label[@id='message23']").get_classes() == []
