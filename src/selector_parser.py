@@ -58,3 +58,14 @@ class CSSSelectorParser:
                     attribute_match.group(2).strip("'").strip('"')
                 )
         return attributes
+
+
+class XPathParser:
+    def __init__(self, selector: str):
+        self.selector = selector
+        self.validate()
+
+    def validate(self):
+        expression = re.compile(r"^//(\w*|\*)(\[.+])*$")
+        if expression.match(self.selector) is None:
+            raise ParsingError("Cannot parse XPath selector")
