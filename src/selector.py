@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from enum import Enum
-from .selector_parser import CSSSelectorParser
+from .selector_parser import CSSSelectorParser, XPathParser
 from .selector_to_string import CSSSelectorConstructor
 from typing import Optional, List, Dict
 
@@ -63,6 +63,19 @@ class Selector:
     @classmethod
     def from_tag_name(cls, tag_name: str) -> "Selector":
         return cls(selector_type=SelectorType.BY_TAG_NAME, tag=tag_name)
+
+    @classmethod
+    def from_xpath(cls, xpath_selector: str) -> "Selector":
+        parser = XPathParser(xpath_selector)
+        return cls(
+            selector_type=SelectorType.BY_XPATH,
+            tag=parser.get_tag() or None,
+            id=parser.get_id() or None,
+            classes=parser.get_classes() or None,
+            index=parser.get_index(),
+            other_attributes=parser.get_attributes() or None,
+            inner_text=parser.get_inner_text() or None,
+        )
 
     def __eq__(self, other: "Selector") -> bool:
         return (
