@@ -99,3 +99,12 @@ class XPathParser:
             if search_result is not None:
                 return search_result.group(1).strip('"').strip("'").split(" ")
         return []
+
+    def get_attributes(self) -> Dict[str, str]:
+        attributes = {}
+        attribute_expression = re.compile(r"""@([\w-]+)=('[^']*'|"[^"]*")""")
+        raw_attributes = attribute_expression.findall(self.selector)
+        for attr_name, attr_value in raw_attributes:
+            if attr_name not in ["class", "id"]:
+                attributes[attr_name] = attr_value.strip("'").strip('"')
+        return attributes

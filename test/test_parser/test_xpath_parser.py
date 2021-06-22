@@ -54,3 +54,18 @@ def test_parse_classes_single_class_with_contains():
 
 def test_parse_classes_no_class():
     assert XPathParser("//label[@id='message23']").get_classes() == []
+
+
+def test_parse_attributes_single_quotes():
+    selector = "//div[@id='hello'][@href='hello.world']"
+    assert XPathParser(selector).get_attributes() == {"href": "hello.world"}
+
+
+def test_parse_attributes_double_quotes():
+    selector = '//*[@class="class-hello" and @name="hello"]'
+    assert XPathParser(selector).get_attributes() == {"name": "hello"}
+
+
+def test_parse_attributes_empty():
+    selector = "//*[@class='class-hello']"
+    assert XPathParser(selector).get_attributes() == {}
