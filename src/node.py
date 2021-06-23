@@ -1,4 +1,5 @@
-from dataclasses import dataclass, field
+from dataclasses import field
+from pydantic.dataclasses import dataclass
 from typing import Optional, List, Dict
 
 
@@ -10,5 +11,3 @@ class Node:
     index: Optional[int] = None
     other_attributes: Dict[str, str] = field(default_factory=dict)
     inner_text: str = ""
-    parent: Optional["Node"] = None
-    children: Optional[List["Node"]] = None

@@ -5,15 +5,15 @@ from .selector_to_string import CSSSelectorConstructor, XPathConstructor
 from typing import Optional, List, Dict
 
 
-class SelectorType(Enum):
-    BY_CLASS_NAME = 1
-    BY_CSS_SELECTOR = 2
-    BY_ID = 3
-    BY_LINK_TEXT = 4
-    BY_NAME = 5
-    BY_PARTIAL_LINK_TEXT = 6
-    BY_TAG_NAME = 7
-    BY_XPATH = 8
+class SelectorType(str, Enum):
+    BY_CLASS_NAME = "BY_CLASS_NAME"
+    BY_CSS_SELECTOR = "BY_CSS_SELECTOR"
+    BY_ID = "BY_ID"
+    BY_LINK_TEXT = "BY_LINK_TEXT"
+    BY_NAME = "BY_NAME"
+    BY_PARTIAL_LINK_TEXT = "BY_PARTIAL_LINK_TEXT"
+    BY_TAG_NAME = "BY_TAG_NAME"
+    BY_XPATH = "BY_XPATH"
 
 
 @dataclass
@@ -25,6 +25,27 @@ class Selector:
     index: Optional[int] = None
     other_attributes: Optional[Dict[str, str]] = None
     inner_text: Optional[str] = None
+
+    @classmethod
+    def from_type_and_value(cls, selector_type: SelectorType, value: str) -> "Selector":
+        if selector_type == SelectorType.BY_CLASS_NAME:
+            return cls.from_class_name(value)
+        elif selector_type == SelectorType.BY_CSS_SELECTOR:
+            return cls.from_css(value)
+        elif selector_type == SelectorType.BY_ID:
+            return cls.from_id(value)
+        elif selector_type == SelectorType.BY_LINK_TEXT:
+            return cls.from_link_text(value)
+        elif selector_type == SelectorType.BY_NAME:
+            return cls.from_name(value)
+        elif selector_type == SelectorType.BY_PARTIAL_LINK_TEXT:
+            return cls.from_partial_link_text(value)
+        elif selector_type == SelectorType.BY_TAG_NAME:
+            return cls.from_tag_name(value)
+        elif selector_type == SelectorType.BY_XPATH:
+            return cls.from_xpath(value)
+        else:
+            raise ValueError(f"Invalid selector type: {selector_type}")
 
     @classmethod
     def from_class_name(cls, class_name: str) -> "Selector":

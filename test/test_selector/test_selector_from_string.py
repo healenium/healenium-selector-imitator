@@ -73,3 +73,9 @@ def test_from_xpath_complex():
         other_attributes={"name": "my_selector"},
         inner_text="hello world",
     )
+
+
+def test_from_type_and_value():
+    assert Selector.from_type_and_value(
+        SelectorType.BY_ID, value="some-id"
+    ) == Selector(selector_type=SelectorType.BY_ID, id="some-id")
