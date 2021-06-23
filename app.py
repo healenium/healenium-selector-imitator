@@ -1,14 +1,32 @@
 import os
 import uvicorn
 
-from fastapi import FastAPI
+from fastapi import FastAPI, Request
+from fastapi.responses import JSONResponse
 from src.datamodel import ImitationRequestModel, ImitationResponseModel
 from src.selector import Selector
-from src.selector_imitator import SelectorImitator
+from src.selector_imitator import SelectorImitator, ImitationError
+from src.selector_parser import ParsingError
 from typing import List
 
 
 app = FastAPI()
+
+
+@app.exception_handler(ImitationError)
+async def imitation_error_handler(request: Request, exc: ImitationError):
+    return JSONResponse(
+        status_code=422,
+        content={"detail": [{"msg": f"Unable to imitate the user selector: {exc}"}]},
+    )
+
+
+@app.exception_handler(ParsingError)
+async def imitation_error_handler(request: Request, exc: ParsingError):
+    return JSONResponse(
+        status_code=422,
+        content={"detail": [{"msg": f"Unable to parse the user selector: {exc}"}]},
+    )
 
 
 @app.get("/")
@@ -17,7 +35,7 @@ def main():
 
 
 @app.post("/imitate", response_model=List[ImitationResponseModel])
-def imitate(request: ImitationRequestModel):
+async def imitate(request: ImitationRequestModel):
     user_selector = Selector.from_type_and_value(
         selector_type=request.user_selector.type, value=request.user_selector.value
     )
