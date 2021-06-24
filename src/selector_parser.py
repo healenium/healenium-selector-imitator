@@ -28,7 +28,7 @@ class CSSSelectorParser:
     def validate(self):
         expression = re.compile(r"^([\w-]*)(\.[\w-]+|#[\w-]+|\[.+])*$")
         if expression.match(self.selector) is None:
-            raise ParsingError("Cannot parse CSS selector")
+            raise ParsingError("Cannot parse CSS selector.")
 
     def get_tag(self) -> str:
         expression = re.compile(r"^[\w-]+")
@@ -73,7 +73,7 @@ class XPathParser:
     def validate(self):
         expression = re.compile(r"^//([\w-]*|\*)(\[.+])*$")
         if expression.match(self.selector) is None:
-            raise ParsingError("Cannot parse XPath selector")
+            raise ParsingError("Cannot parse XPath selector.")
 
     def get_tag(self) -> str:
         expression = re.compile(r"^//([\w-]+)")

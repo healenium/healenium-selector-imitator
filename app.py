@@ -22,7 +22,7 @@ async def imitation_error_handler(request: Request, exc: ImitationError):
 
 
 @app.exception_handler(ParsingError)
-async def imitation_error_handler(request: Request, exc: ParsingError):
+async def parsing_error_handler(request: Request, exc: ParsingError):
     return JSONResponse(
         status_code=422,
         content={"detail": [{"msg": f"Unable to parse the user selector: {exc}"}]},
