@@ -22,8 +22,10 @@ Here is an example request. You can try out different requests with Swagger afte
 
 
 ### <a name="installation">Installation with Docker</a>
-Run this from the repository directory:
+Run these commands from the repository directory (you'll need docker and pyarmor installed):
 ```
+pyarmor obfuscate --platform linux.x86_64.7 --recursive --output dist/src src/__init__.py
+pyarmor obfuscate --platform linux.x86_64.7 --exact app.py
 docker build -t hlm-selector-imitator:v1 .
 docker run -d -p 8000:8000 hlm-selector-imitator:v1
 ```
