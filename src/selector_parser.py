@@ -14,9 +14,13 @@ class ParsingUtils:
         single_quote_expression = re.compile("'.*'")
         double_quote_expression = re.compile('".*"')
         for expression in [single_quote_expression, double_quote_expression]:
-            while expression.search(result) is not None:
-                idx_from, idx_to = expression.search(result).span()
-                result = result[:idx_from] + result[idx_to:]
+            while True:
+                search_result = expression.search(result)
+                if search_result is not None:
+                    idx_from, idx_to = search_result.span()
+                    result = result[:idx_from] + result[idx_to:]
+                else:
+                    break
         return result
 
 
@@ -25,7 +29,7 @@ class CSSSelectorParser:
         self.selector = selector
         self.validate()
 
-    def validate(self):
+    def validate(self) -> None:
         expression = re.compile(r"^([\w-]*)(\.[\w-]+|#[\w-]+|\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse CSS selector.")
@@ -70,7 +74,7 @@ class XPathParser:
         self.selector = selector
         self.validate()
 
-    def validate(self):
+    def validate(self) -> None:
         expression = re.compile(r"^//([\w-]*|\*)(\[.+])*$")
         if expression.match(self.selector) is None:
             raise ParsingError("Cannot parse XPath selector.")

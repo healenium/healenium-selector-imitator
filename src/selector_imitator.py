@@ -125,23 +125,23 @@ class SelectorImitator:
         """Return a list of possible selectors for a target node that imitates a user selector.
         Raise ImitationError if the target node cannot be imitated.
         """
-        if self.user_selector.selector_type == SelectorType.BY_CLASS_NAME:
+        if self.user_selector.selector_type is SelectorType.BY_CLASS_NAME:
             return self._imitate_class_name()
         elif self.user_selector.selector_type in [
             SelectorType.BY_CSS_SELECTOR,
             SelectorType.BY_XPATH,
         ]:
             return [self._imitate_css_or_xpath()]
-        elif self.user_selector.selector_type == SelectorType.BY_ID:
+        elif self.user_selector.selector_type is SelectorType.BY_ID:
             return [self._imitate_id()]
         elif self.user_selector.selector_type in [
             SelectorType.BY_LINK_TEXT,
             SelectorType.BY_PARTIAL_LINK_TEXT,
         ]:
             return [self._imitate_link_text()]
-        elif self.user_selector.selector_type == SelectorType.BY_NAME:
+        elif self.user_selector.selector_type is SelectorType.BY_NAME:
             return [self._imitate_name()]
-        elif self.user_selector.selector_type == SelectorType.BY_TAG_NAME:
+        elif self.user_selector.selector_type is SelectorType.BY_TAG_NAME:
             return [self._by_tag_name()]
         else:
             raise ImitationError("Imitation for user selector type is not implemented.")

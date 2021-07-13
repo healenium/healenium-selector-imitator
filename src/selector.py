@@ -28,21 +28,21 @@ class Selector:
 
     @classmethod
     def from_type_and_value(cls, selector_type: SelectorType, value: str) -> "Selector":
-        if selector_type == SelectorType.BY_CLASS_NAME:
+        if selector_type is SelectorType.BY_CLASS_NAME:
             return cls.from_class_name(value)
-        elif selector_type == SelectorType.BY_CSS_SELECTOR:
+        elif selector_type is SelectorType.BY_CSS_SELECTOR:
             return cls.from_css(value)
-        elif selector_type == SelectorType.BY_ID:
+        elif selector_type is SelectorType.BY_ID:
             return cls.from_id(value)
-        elif selector_type == SelectorType.BY_LINK_TEXT:
+        elif selector_type is SelectorType.BY_LINK_TEXT:
             return cls.from_link_text(value)
-        elif selector_type == SelectorType.BY_NAME:
+        elif selector_type is SelectorType.BY_NAME:
             return cls.from_name(value)
-        elif selector_type == SelectorType.BY_PARTIAL_LINK_TEXT:
+        elif selector_type is SelectorType.BY_PARTIAL_LINK_TEXT:
             return cls.from_partial_link_text(value)
-        elif selector_type == SelectorType.BY_TAG_NAME:
+        elif selector_type is SelectorType.BY_TAG_NAME:
             return cls.from_tag_name(value)
-        elif selector_type == SelectorType.BY_XPATH:
+        elif selector_type is SelectorType.BY_XPATH:
             return cls.from_xpath(value)
         else:
             raise ValueError(f"Invalid selector type: {selector_type}")
@@ -98,7 +98,9 @@ class Selector:
             inner_text=parser.get_inner_text() or None,
         )
 
-    def __eq__(self, other: "Selector") -> bool:
+    def __eq__(self, other: object) -> bool:
+        if not isinstance(other, Selector):
+            return False
         return (
             self.selector_type == other.selector_type
             and self.tag == other.tag
@@ -109,40 +111,40 @@ class Selector:
             and self.inner_text == other.inner_text
         )
 
-    def __str__(self):
-        if self.selector_type == SelectorType.BY_CLASS_NAME:
+    def __str__(self) -> str:
+        if self.selector_type is SelectorType.BY_CLASS_NAME:
             if self.classes is None or len(self.classes) == 0:
                 raise ValueError(
                     "BY_CLASS_NAME selector must contain one class name, none provided."
                 )
             if len(self.classes) == 1:
                 return self.classes[0]
-            elif len(self.classes) > 1:
+            else:
                 raise ValueError(
                     "Ambiguous BY_CLASS_NAME selector. "
                     "Only one class allowed for this selector type."
                 )
-        elif self.selector_type == SelectorType.BY_CSS_SELECTOR:
+        elif self.selector_type is SelectorType.BY_CSS_SELECTOR:
             return CSSSelectorConstructor(
                 tag=self.tag,
                 element_id=self.id,
                 classes=self.classes,
                 other_attributes=self.other_attributes,
             ).get_string_representation()
-        elif self.selector_type == SelectorType.BY_ID:
+        elif self.selector_type is SelectorType.BY_ID:
             return self.id if self.id is not None else ""
-        elif self.selector_type == SelectorType.BY_LINK_TEXT:
+        elif self.selector_type is SelectorType.BY_LINK_TEXT:
             return self.inner_text if self.inner_text is not None else ""
-        elif self.selector_type == SelectorType.BY_NAME:
+        elif self.selector_type is SelectorType.BY_NAME:
             if self.other_attributes is not None and "name" in self.other_attributes:
                 return self.other_attributes["name"]
             else:
                 raise ValueError("BY_NAME selector must contain name attribute.")
-        elif self.selector_type == SelectorType.BY_PARTIAL_LINK_TEXT:
+        elif self.selector_type is SelectorType.BY_PARTIAL_LINK_TEXT:
             return self.inner_text if self.inner_text is not None else ""
-        elif self.selector_type == SelectorType.BY_TAG_NAME:
+        elif self.selector_type is SelectorType.BY_TAG_NAME:
             return self.tag if self.tag is not None else ""
-        elif self.selector_type == SelectorType.BY_XPATH:
+        elif self.selector_type is SelectorType.BY_XPATH:
             return XPathConstructor(
                 tag=self.tag,
                 element_id=self.id,

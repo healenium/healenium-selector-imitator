@@ -14,7 +14,9 @@ app = FastAPI()
 
 
 @app.exception_handler(ImitationError)
-async def imitation_error_handler(request: Request, exc: ImitationError):
+async def imitation_error_handler(
+    request: Request, exc: ImitationError
+) -> JSONResponse:
     return JSONResponse(
         status_code=422,
         content={"detail": [{"msg": f"Unable to imitate the user selector: {exc}"}]},
@@ -22,7 +24,7 @@ async def imitation_error_handler(request: Request, exc: ImitationError):
 
 
 @app.exception_handler(ParsingError)
-async def parsing_error_handler(request: Request, exc: ParsingError):
+async def parsing_error_handler(request: Request, exc: ParsingError) -> JSONResponse:
     return JSONResponse(
         status_code=422,
         content={"detail": [{"msg": f"Unable to parse the user selector: {exc}"}]},
@@ -30,12 +32,12 @@ async def parsing_error_handler(request: Request, exc: ParsingError):
 
 
 @app.get("/")
-def main():
+def main() -> str:
     return "this is an entry point of the selector imitator"
 
 
 @app.post("/imitate", response_model=List[ImitationResponseModel])
-async def imitate(request: ImitationRequestModel):
+async def imitate(request: ImitationRequestModel) -> List[ImitationResponseModel]:
     user_selector = Selector.from_type_and_value(
         selector_type=request.user_selector.type, value=request.user_selector.value
     )

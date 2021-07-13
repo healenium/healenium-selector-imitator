@@ -5,3 +5,4 @@ exclude =
     .idea
     .pytest_cache
     env
+    dist
