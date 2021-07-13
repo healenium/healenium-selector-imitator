@@ -47,6 +47,11 @@ coverage report -m
 coverage html
 ```
 
+Check types with mypy:
+```
+mypy src app.py
+```
+
 Lint with [flake8](https://flake8.pycqa.org/en/latest/):
 ```
 flake8
