@@ -47,7 +47,7 @@ coverage report -m
 coverage html
 ```
 
-Check types with mypy:
+Check types with [mypy](https://mypy.readthedocs.io/en/stable/):
 ```
 mypy src app.py
 ```
