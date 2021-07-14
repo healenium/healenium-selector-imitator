@@ -6,7 +6,8 @@ Proposed selectors are not guaranteed to find a unique web element. Uniqueness m
 1. [Example request and response](#example)
 2. [Image and container resources consumption](#resources)
 3. [Installation with Docker](#installation)
-4. [Local testing](#testing)
+4. [Creating your own image from Dockerfile](#image)
+5. [Local testing](#testing)
 
 ### <a name="example">Example request and response</a>
 
@@ -22,15 +23,23 @@ Here is an example request. You can try out different requests with Swagger afte
 
 
 ### <a name="installation">Installation with Docker</a>
-Run these commands from the repository directory (you'll need docker and pyarmor installed):
+Run the following commands to install and use Healenium selector imitator as a stand-alone service (you'll need docker installed):
 ```
-pyarmor obfuscate --platform linux.x86_64.7 --recursive --output dist/src src/__init__.py
-pyarmor obfuscate --platform linux.x86_64.7 --exact app.py
-docker build -t hlm-selector-imitator:v1 .
-docker run -d -p 8000:8000 hlm-selector-imitator:v1
+docker pull healenium/hlm-selector-imitator:1
+docker run -d -p 8000:8000 healenium/hlm-selector-imitator:1
 ```
 Now you can access an API at http://localhost:8000/  
 Check http://localhost:8000/docs for Swagger documentation.
+
+### <a name="image">Creating your own image from Dockerfile</a>
+If you wish to make some changes to the code and test them in Docker environment, you will need to create an image.
+Run these commands from the repository directory, change the version if needed (you'll need docker and pyarmor installed):
+```
+pyarmor obfuscate --platform linux.x86_64.7 --recursive --output dist/src src/__init__.py
+pyarmor obfuscate --platform linux.x86_64.7 --exact app.py
+docker build -t healenium/hlm-selector-imitator:1 .
+docker run -d -p 8000:8000 healenium/hlm-selector-imitator:1
+```
 
 ### <a name="testing">Local testing</a>
 To test or lint locally, create a virtual environment with Pyhton 3.7 and install packages from requirements_dev.txt  
