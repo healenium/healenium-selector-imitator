@@ -23,10 +23,9 @@ Here is an example request. You can try out different requests with Swagger afte
 
 
 ### <a name="installation">Installation with Docker</a>
-Run the following commands to install and use Healenium selector imitator as a stand-alone service (you'll need docker installed):
+Run the following command to install and use Healenium selector imitator as a stand-alone service (you'll need docker installed):
 ```
-docker pull healenium/hlm-selector-imitator:1
-docker run -d -p 8000:8000 healenium/hlm-selector-imitator:1
+docker compose up
 ```
 Now you can access an API at http://localhost:8000/  
 Check http://localhost:8000/docs for Swagger documentation.
