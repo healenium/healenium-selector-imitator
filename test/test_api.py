@@ -7,12 +7,12 @@ from typing import List
 
 @pytest.fixture()
 def user_selector() -> dict:
-    return {"type": "BY_XPATH", "value": "//*[@value='Log In']"}
+    return {"type": "By.xpath", "value": "//*[@value='Log In']"}
 
 
 @pytest.fixture()
 def user_selector_invalid_value() -> dict:
-    return {"type": "BY_XPATH", "value": "hello, world!"}
+    return {"type": "By.xpath", "value": "hello, world!"}
 
 
 @pytest.fixture()
@@ -42,7 +42,7 @@ def target_node_no_value() -> dict:
 
 @pytest.fixture()
 def expected_response() -> List[dict]:
-    return [{"selector_type": "BY_XPATH", "selector_value": "//*[@value='Log In New']"}]
+    return [{"selector_type": "By.xpath", "selector_value": "//*[@value='Log In New']"}]
 
 
 @pytest.fixture()

@@ -6,14 +6,14 @@ from typing import Optional, List, Dict
 
 
 class SelectorType(str, Enum):
-    BY_CLASS_NAME = "BY_CLASS_NAME"
-    BY_CSS_SELECTOR = "BY_CSS_SELECTOR"
-    BY_ID = "BY_ID"
-    BY_LINK_TEXT = "BY_LINK_TEXT"
-    BY_NAME = "BY_NAME"
-    BY_PARTIAL_LINK_TEXT = "BY_PARTIAL_LINK_TEXT"
-    BY_TAG_NAME = "BY_TAG_NAME"
-    BY_XPATH = "BY_XPATH"
+    BY_CLASS_NAME = "By.className"
+    BY_CSS_SELECTOR = "By.cssSelector"
+    BY_ID = "By.id"
+    BY_LINK_TEXT = "By.linkText"
+    BY_NAME = "By.name"
+    BY_PARTIAL_LINK_TEXT = "By.partialLinkText"
+    BY_TAG_NAME = "By.tagName"
+    BY_XPATH = "By.xpath"
 
 
 @dataclass
