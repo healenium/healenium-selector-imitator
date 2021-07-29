@@ -13,5 +13,4 @@ class Node(BaseModel):
     inner_text: str = Field("", alias="innerText")
 
     class Config:
-        ignore_extra = False
         allow_population_by_field_name = True

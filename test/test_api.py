@@ -46,7 +46,7 @@ def target_node_no_value() -> dict:
 
 @pytest.fixture()
 def expected_response() -> List[dict]:
-    return [{"selector_type": "By.xpath", "selector_value": "//*[@value='Log In New']"}]
+    return [{"selectorType": "By.xpath", "selectorValue": "//*[@value='Log In New']"}]
 
 
 @pytest.fixture()
