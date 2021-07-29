@@ -13,7 +13,7 @@ Proposed selectors are not guaranteed to find a unique web element. Uniqueness m
 
 Here is an example request. You can try out different requests with Swagger after the [installation](#installation).
 ![image](https://user-images.githubusercontent.com/40484210/127496491-38b657c2-6497-40f6-abc6-f65f3f30e2a6.png)
-![image](https://user-images.githubusercontent.com/40484210/127496525-a16f690b-cfcf-4716-bffa-013017fe68a5.png)
+![image](https://user-images.githubusercontent.com/40484210/127499987-21bd4f6d-13e2-4d9f-8fea-224a0762c964.png)
 
 
 ### <a name="resources">Image and container resources consumption</a>
