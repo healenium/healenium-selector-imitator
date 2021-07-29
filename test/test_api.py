@@ -20,11 +20,13 @@ def target_node() -> dict:
     return {
         "tag": "input",
         "classes": ["fadeIn", "fourth"],
-        "other_attributes": {
+        "otherAttributes": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
             "value": "Log In New",
         },
+        "parent": None,
+        "children": [],
     }
 
 
@@ -33,10 +35,12 @@ def target_node_no_value() -> dict:
     return {
         "tag": "input",
         "classes": ["fadeIn", "fourth"],
-        "other_attributes": {
+        "otherAttributes": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
         },
+        "parent": None,
+        "children": [],
     }
 
 
@@ -76,7 +80,7 @@ def test_main():
 
 
 def test_imitate(user_selector: dict, target_node: dict, expected_response: List[dict]):
-    request_data = {"user_selector": user_selector, "target_node": target_node}
+    request_data = {"userSelector": user_selector, "targetNode": target_node}
     with TestClient(app) as client:
         response = client.post("/imitate", json=request_data)
         assert response.status_code == 200
@@ -88,7 +92,7 @@ def test_imitation_error(
     target_node_no_value: dict,
     expected_response_imitation_error: List[dict],
 ):
-    request_data = {"user_selector": user_selector, "target_node": target_node_no_value}
+    request_data = {"userSelector": user_selector, "targetNode": target_node_no_value}
     with TestClient(app) as client:
         response = client.post("/imitate", json=request_data)
         assert response.status_code == 422
@@ -101,8 +105,8 @@ def test_parsing_error(
     expected_response_parsing_error: List[dict],
 ):
     request_data = {
-        "user_selector": user_selector_invalid_value,
-        "target_node": target_node,
+        "userSelector": user_selector_invalid_value,
+        "targetNode": target_node,
     }
     with TestClient(app) as client:
         response = client.post("/imitate", json=request_data)

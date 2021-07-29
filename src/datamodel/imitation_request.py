@@ -1,4 +1,4 @@
-from pydantic import BaseModel
+from pydantic import BaseModel, Field
 from src.node import Node
 from src.selector import SelectorType
 
@@ -9,5 +9,5 @@ class UserSelector(BaseModel):
 
 
 class ImitationRequestModel(BaseModel):
-    user_selector: UserSelector
-    target_node: Node
+    user_selector: UserSelector = Field(..., alias="userSelector")
+    target_node: Node = Field(..., alias="targetNode")
