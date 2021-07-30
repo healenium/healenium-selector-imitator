@@ -19,7 +19,7 @@ def user_selector_invalid_value() -> dict:
 def target_node() -> dict:
     return {
         "tag": "input",
-        "classes": ["fadeIn", "fourth"],
+        "classes": "fadeIn fourth",
         "otherAttributes": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
@@ -34,7 +34,7 @@ def target_node() -> dict:
 def target_node_no_value() -> dict:
     return {
         "tag": "input",
-        "classes": ["fadeIn", "fourth"],
+        "classes": "fadeIn fourth",
         "otherAttributes": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
