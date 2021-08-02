@@ -7,9 +7,7 @@ class Node(BaseModel):
     id: str = ""
     classes: List[str] = Field(default_factory=list)
     index: Optional[int] = None
-    other_attributes: Dict[str, str] = Field(
-        default_factory=dict, alias="otherAttributes"
-    )
+    other_attributes: Dict[str, str] = Field(default_factory=dict, alias="other")
     inner_text: str = Field("", alias="innerText")
 
     class Config:

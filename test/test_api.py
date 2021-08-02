@@ -20,7 +20,7 @@ def target_node() -> dict:
     return {
         "tag": "input",
         "classes": "fadeIn fourth",
-        "otherAttributes": {
+        "other": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
             "value": "Log In New",
@@ -35,7 +35,7 @@ def target_node_no_value() -> dict:
     return {
         "tag": "input",
         "classes": "fadeIn fourth",
-        "otherAttributes": {
+        "other": {
             "_ngcontent-wvw-c3": "",
             "type": "button",
         },
