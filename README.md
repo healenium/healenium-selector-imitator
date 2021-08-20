@@ -12,8 +12,8 @@ Proposed selectors are not guaranteed to find a unique web element. Uniqueness m
 ### <a name="example">Example request and response</a>
 
 Here is an example request. You can try out different requests with Swagger after the [installation](#installation).
-![image](https://user-images.githubusercontent.com/40484210/127496491-38b657c2-6497-40f6-abc6-f65f3f30e2a6.png)
-![image](https://user-images.githubusercontent.com/40484210/127499987-21bd4f6d-13e2-4d9f-8fea-224a0762c964.png)
+![image](https://user-images.githubusercontent.com/40484210/127833016-10da747f-ae4d-480f-9624-ec1266cbbb25.png)
+![image](https://user-images.githubusercontent.com/40484210/127833088-59eeced9-17c3-4b60-b1ee-f97d4421ff33.png)
 
 
 ### <a name="resources">Image and container resources consumption</a>
