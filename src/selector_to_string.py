@@ -56,7 +56,7 @@ class XPathConstructor:
         self.index = index
         self.inner_text = inner_text
 
-    def get_string_representation(self) -> str:
+    def get_string_representation(self, split_classes: bool = False) -> str:
         result = "//"
         if self.tag is None:
             result += "*"
@@ -64,8 +64,12 @@ class XPathConstructor:
             result += self.tag
         if self.element_id is not None:
             result += f"[@id='{self.element_id}']"
-        for classname in self.classes:
-            result += f"[contains(@class, '{classname}')]"
+        if split_classes:
+            for classname in self.classes:
+                result += f"[contains(@class, '{classname}')]"
+        elif self.classes:
+            merged_classes = " ".join(self.classes)
+            result += f"[@class='{merged_classes}']"
         for attr_name, attr_value in self.other_attributes.items():
             result += f"[@{attr_name}='{attr_value}']"
         if self.inner_text is not None:

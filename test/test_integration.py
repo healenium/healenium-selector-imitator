@@ -50,3 +50,37 @@ def test_integration_xpath_selector_value():
         str(SelectorImitator(user_selector, target_node).imitate()[0])
         == "//*[@value='Log In New']"
     )
+
+
+def test_integration_xpath_selector_class_split():
+    user_selector = Selector.from_xpath("//*[@class='fadeIn'][@value='Log In']")
+    target_node = Node(
+        tag="input",
+        classes=["fadeIn", "fourth"],
+        other_attributes={
+            "_ngcontent-wvw-c3": "",
+            "type": "button",
+            "value": "Log In New",
+        },
+    )
+    assert (
+        str(SelectorImitator(user_selector, target_node).imitate()[0])
+        == "//*[contains(@class, 'fadeIn')][@value='Log In New']"
+    )
+
+
+def test_integration_xpath_selector_class_no_split():
+    user_selector = Selector.from_xpath("//*[@class='fadeIn fourth'][@value='Log In']")
+    target_node = Node(
+        tag="input",
+        classes=["fadeIn", "fourth"],
+        other_attributes={
+            "_ngcontent-wvw-c3": "",
+            "type": "button",
+            "value": "Log In New",
+        },
+    )
+    assert (
+        str(SelectorImitator(user_selector, target_node).imitate()[0])
+        == "//*[@class='fadeIn fourth'][@value='Log In New']"
+    )

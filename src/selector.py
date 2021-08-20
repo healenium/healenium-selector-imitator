@@ -25,6 +25,7 @@ class Selector:
     index: Optional[int] = None
     other_attributes: Optional[Dict[str, str]] = None
     inner_text: Optional[str] = None
+    split_classes: bool = False
 
     @classmethod
     def from_type_and_value(cls, selector_type: SelectorType, value: str) -> "Selector":
@@ -152,6 +153,6 @@ class Selector:
                 other_attributes=self.other_attributes,
                 index=self.index,
                 inner_text=self.inner_text,
-            ).get_string_representation()
+            ).get_string_representation(split_classes=self.split_classes)
         else:
             return ""

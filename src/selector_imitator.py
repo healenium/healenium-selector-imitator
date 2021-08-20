@@ -50,6 +50,9 @@ class SelectorImitator:
                     target_selector.classes = self.target_node.classes
             else:
                 raise ImitationError("Target node does not belong to any classes.")
+        target_selector.split_classes = (
+            target_selector.classes != self.target_node.classes
+        )
         if self.user_selector.index is not None:
             if self.target_node.index:
                 target_selector.index = self.target_node.index

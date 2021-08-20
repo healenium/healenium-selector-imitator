@@ -52,6 +52,13 @@ def test_parse_classes_single_class_with_contains():
     assert XPathParser("//*[contains(@class,'btn')]").get_classes() == ["btn"]
 
 
+def test_parse_classes_multiple_classes_with_contains():
+    assert XPathParser("//*[contains(@class,'btn cls1')]").get_classes() == [
+        "btn",
+        "cls1",
+    ]
+
+
 def test_parse_classes_no_class():
     assert XPathParser("//label[@id='message23']").get_classes() == []
 
