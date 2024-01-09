@@ -1,7 +1,8 @@
 FROM python:3.7-slim-stretch
 
-COPY ./requirements.txt ./requirements.txt
-COPY ./dist ./
+RUN pip install --upgrade pip==23.3
+
+COPY ./ ./
 
 RUN pip install -r requirements.txt
 
