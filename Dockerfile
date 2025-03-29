@@ -1,6 +1,6 @@
-FROM python:3.7-slim-stretch
+FROM python:alpine
 
-RUN pip install --upgrade pip==23.3
+RUN pip install --upgrade pip
 
 COPY ./ ./
 
