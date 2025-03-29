@@ -1,4 +1,4 @@
-fastapi==0.103.2
+fastapi==0.115.12
 uvicorn==0.13.4
-setuptools==68.0.0
+setuptools==70.0.0
 wheel==0.38.1
